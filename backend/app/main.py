@@ -121,13 +121,16 @@ app = FastAPI(
 )
 app.add_middleware(
           CORSMiddleware,
-          allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+          allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://ahmed123-am.github.io",
+    ],
           allow_credentials=True,
           allow_methods=["*"],
           allow_headers=["*"],
 )
 app.include_router(create_crop_health_router(DATABASE_PATH))
-
 SoilType = Literal["clay", "sandy", "loamy", "silty", "other"]
 PlanSeason = Literal["winter", "summer", "nile"]
 PlanStatus = Literal["draft", "active", "completed"]
@@ -808,15 +811,10 @@ def ai_farm_advisor_chat(request: AIFarmAdvisorRequest):
             status_code=502,
             detail="The AI service request failed. Check the backend logs and API configuration.",
         ) from exc
-
-
 # Satellite Intelligence — Copernicus Sentinel-2
-
-
 def get_satellite_farm(farm_id: int) -> Farm:
     """Return a farm with coordinates required for satellite requests."""
     farm = find_farm(farm_id)
-
     if farm.latitude is None or farm.longitude is None:
         raise HTTPException(
             status_code=422,
@@ -825,10 +823,7 @@ def get_satellite_farm(farm_id: int) -> Farm:
                 "before satellite data can be requested."
             ),
         )
-
     return farm
-
-
 def run_satellite_request(callback):
     """Translate satellite provider errors into safe HTTP responses."""
     try:
@@ -836,7 +831,6 @@ def run_satellite_request(callback):
     except SatelliteDataError as exc:
         message = str(exc)
         lowered = message.lower()
-
         if "not configured" in lowered:
             status_code = 503
         elif "no usable" in lowered or "no observations" in lowered:
@@ -845,13 +839,10 @@ def run_satellite_request(callback):
             status_code = 422
         else:
             status_code = 502
-
         raise HTTPException(
             status_code=status_code,
             detail=message,
         ) from exc
-
-
 @app.get("/api/farms/{farm_id}/satellite/image")
 def satellite_farm_image(
     farm_id: int,
@@ -861,7 +852,6 @@ def satellite_farm_image(
     max_cloud_coverage: int = Query(default=30, ge=0, le=100),
 ):
     farm = get_satellite_farm(farm_id)
-
     result = run_satellite_request(
         lambda: get_satellite_image(
             latitude=farm.latitude,
@@ -872,14 +862,11 @@ def satellite_farm_image(
             max_cloud_coverage=max_cloud_coverage,
         )
     )
-
     return {
         "farm_id": farm.id,
         "farm_name": farm.name,
         **result,
     }
-
-
 @app.get("/api/farms/{farm_id}/satellite/ndvi")
 def satellite_farm_ndvi(
     farm_id: int,
@@ -888,7 +875,6 @@ def satellite_farm_ndvi(
     max_cloud_coverage: int = Query(default=30, ge=0, le=100),
 ):
     farm = get_satellite_farm(farm_id)
-
     result = run_satellite_request(
         lambda: get_ndvi_statistics(
             latitude=farm.latitude,
@@ -898,14 +884,11 @@ def satellite_farm_ndvi(
             max_cloud_coverage=max_cloud_coverage,
         )
     )
-
     return {
         "farm_id": farm.id,
         "farm_name": farm.name,
         **result,
     }
-
-
 @app.get("/api/farms/{farm_id}/satellite/compare")
 def satellite_farm_compare(
     farm_id: int,
@@ -916,7 +899,6 @@ def satellite_farm_compare(
     max_cloud_coverage: int = Query(default=30, ge=0, le=100),
 ):
     farm = get_satellite_farm(farm_id)
-
     result = run_satellite_request(
         lambda: compare_ndvi_periods(
             latitude=farm.latitude,
@@ -928,7 +910,6 @@ def satellite_farm_compare(
             max_cloud_coverage=max_cloud_coverage,
         )
     )
-
     return {
         "farm_id": farm.id,
         "farm_name": farm.name,
