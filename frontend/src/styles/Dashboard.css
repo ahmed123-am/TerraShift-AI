@@ -1,0 +1,2504 @@
+/* TerraShift AI Dashboard — responsive, bilingual-friendly styles */
+
+.dashboard-page {
+
+  --dash-bg: var(--background, #f6f8f4);
+
+  --dash-surface: var(--card-bg, #ffffff);
+
+  --dash-text: var(--text-primary, #19372b);
+
+  --dash-muted: var(--text-secondary, #78877f);
+
+  --dash-border: var(--border-color, #e0e9e0);
+
+  --dash-green: var(--primary-color, #2f8057);
+
+  --dash-green-soft: var(--primary-light, #e5f2e8);
+
+  width: 100%;
+
+  min-width: 0;
+
+  padding: clamp(18px, 2.5vw, 32px);
+
+  color: var(--dash-text);
+
+  background: var(--dash-bg);
+
+  box-sizing: border-box;
+
+}
+
+.dashboard-page *,
+
+.dashboard-page *::before,
+
+.dashboard-page *::after {
+
+  box-sizing: border-box;
+
+}
+
+.dashboard-page .dashboard-section {
+
+  margin-top: 28px;
+
+  min-width: 0;
+
+}
+
+.dashboard-page .section-heading {
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 18px;
+
+  margin-bottom: 18px;
+
+}
+
+.dashboard-page .dashboard-eyebrow {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 8px;
+
+  color: var(--dash-green);
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: .11em;
+
+}
+
+.dashboard-page .section-heading h2 {
+
+  margin: 0;
+
+  color: var(--dash-text);
+
+  font-size: clamp(21px, 2vw, 28px);
+
+  line-height: 1.35;
+
+  font-weight: 800;
+
+  letter-spacing: -.025em;
+
+}
+
+.dashboard-page .section-heading p {
+
+  max-width: 680px;
+
+  margin: 7px 0 0;
+
+  color: var(--dash-muted);
+
+  font-size: 13px;
+
+  line-height: 1.8;
+
+}
+
+.dashboard-page .period-label {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+
+  padding: 9px 12px;
+
+  border: 1px solid var(--dash-border);
+
+  border-radius: 999px;
+
+  background: var(--dash-surface);
+
+  color: var(--dash-muted);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+}
+
+.dashboard-page .connection-dot,
+
+.dashboard-page .farm-status-dot {
+
+  width: 7px;
+
+  height: 7px;
+
+  flex: 0 0 7px;
+
+  border-radius: 50%;
+
+  background: #31a85c;
+
+  box-shadow: 0 0 0 4px rgba(49, 168, 92, .12);
+
+}
+
+.dashboard-page .stats-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+}
+
+.dashboard-page .stat-card {
+
+  position: relative;
+
+  overflow: hidden;
+
+  min-width: 0;
+
+  padding: 19px;
+
+  border: 1px solid var(--dash-border);
+
+  border-radius: 18px;
+
+  background: var(--dash-surface);
+
+  box-shadow: 0 5px 18px rgba(27, 55, 34, .035);
+
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+
+}
+
+.dashboard-page .stat-card:hover {
+
+  transform: translateY(-3px);
+
+  border-color: #cbdccb;
+
+  box-shadow: 0 12px 28px rgba(27, 55, 34, .075);
+
+}
+
+.dashboard-page .stat-top {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+
+}
+
+.dashboard-page .stat-icon {
+
+  display: grid;
+
+  place-items: center;
+
+  width: 38px;
+
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  border-radius: 12px;
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+}
+
+.dashboard-page .stat-icon.green { color: #237b43; background: #e7f5e9; }
+
+.dashboard-page .stat-icon.blue { color: #236ca5; background: #e8f3fc; }
+
+.dashboard-page .stat-icon.orange { color: #b66a17; background: #fff1dc; }
+
+.dashboard-page .stat-icon.purple { color: #7953b2; background: #f0eafd; }
+
+.dashboard-page .stat-label {
+
+  color: var(--dash-muted);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  line-height: 1.6;
+
+}
+
+.dashboard-page .stat-value {
+
+  margin-top: 17px;
+
+  color: var(--dash-text);
+
+  font-size: clamp(27px, 3vw, 36px);
+
+  font-weight: 850;
+
+  line-height: 1.15;
+
+  letter-spacing: -.04em;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .stat-description {
+
+  min-height: 21px;
+
+  margin: 8px 0 15px;
+
+  color: var(--dash-muted);
+
+  font-size: 11px;
+
+  line-height: 1.7;
+
+}
+
+.dashboard-page .stat-progress {
+
+  height: 5px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #edf1ed;
+
+}
+
+.dashboard-page .stat-progress > span {
+
+  display: block;
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  transition: width .3s ease;
+
+}
+
+.dashboard-page .green-progress > span { background: #36a45e; }
+
+.dashboard-page .blue-progress > span { background: #3994d4; }
+
+.dashboard-page .orange-progress > span { background: #e9a13c; }
+
+.dashboard-page .purple-progress > span { background: #9671d5; }
+
+.dashboard-page .primary-button {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 42px;
+
+  padding: 10px 16px;
+
+  border: 1px solid #237a43;
+
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, #2c914f, #237441);
+
+  color: #fff;
+
+  font: inherit;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 12px rgba(35, 122, 67, .16);
+
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+
+}
+
+.dashboard-page .primary-button:hover {
+
+  transform: translateY(-1px);
+
+  filter: brightness(1.04);
+
+  box-shadow: 0 8px 17px rgba(35, 122, 67, .22);
+
+}
+
+.dashboard-page .primary-button:focus-visible {
+
+  outline: 3px solid rgba(44, 145, 79, .3);
+
+  outline-offset: 3px;
+
+}
+
+.dashboard-page .farm-dashboard-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+
+}
+
+.dashboard-page .dashboard-farm-card {
+
+  min-width: 0;
+
+  padding: 20px;
+
+  border: 1px solid var(--dash-border);
+
+  border-radius: 18px;
+
+  background: var(--dash-surface);
+
+  box-shadow: 0 5px 18px rgba(27, 55, 34, .035);
+
+  transition: transform .2s ease, box-shadow .2s ease;
+
+}
+
+.dashboard-page .dashboard-farm-card:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 26px rgba(27, 55, 34, .07);
+
+}
+
+.dashboard-page .dashboard-farm-header {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-width: 0;
+
+  padding-bottom: 17px;
+
+  border-bottom: 1px solid var(--dash-border);
+
+}
+
+.dashboard-page .dashboard-farm-icon {
+
+  display: grid;
+
+  place-items: center;
+
+  width: 45px;
+
+  height: 45px;
+
+  flex: 0 0 45px;
+
+  border-radius: 14px;
+
+  background: var(--dash-green-soft);
+
+  font-size: 23px;
+
+}
+
+.dashboard-page .dashboard-farm-title {
+
+  min-width: 0;
+
+  flex: 1;
+
+}
+
+.dashboard-page .dashboard-farm-title > span {
+
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--dash-muted);
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: .08em;
+
+}
+
+.dashboard-page .dashboard-farm-title h3 {
+
+  margin: 0;
+
+  color: var(--dash-text);
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .farm-status {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  flex-shrink: 0;
+
+  padding: 7px 9px;
+
+  border-radius: 999px;
+
+  background: #eaf7ed;
+
+  color: #287d43;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+}
+
+.dashboard-page .farm-status-dot {
+
+  width: 6px;
+
+  height: 6px;
+
+  flex-basis: 6px;
+
+  box-shadow: none;
+
+}
+
+.dashboard-page .dashboard-farm-details {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 17px 14px;
+
+  padding: 19px 0;
+
+}
+
+.dashboard-page .dashboard-farm-detail {
+
+  min-width: 0;
+
+}
+
+.dashboard-page .dashboard-farm-detail > span,
+
+.dashboard-page .dashboard-farm-footer > span {
+
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: var(--dash-muted);
+
+  font-size: 11px;
+
+}
+
+.dashboard-page .dashboard-farm-detail strong {
+
+  display: block;
+
+  color: var(--dash-text);
+
+  font-size: 13px;
+
+  font-weight: 750;
+
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .dashboard-farm-footer {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding-top: 13px;
+
+  border-top: 1px solid var(--dash-border);
+
+}
+
+.dashboard-page .dashboard-farm-footer > span {
+
+  margin: 0;
+
+}
+
+.dashboard-page .dashboard-farm-footer strong {
+
+  color: var(--dash-green);
+
+  font-size: 12px;
+
+}
+
+.dashboard-page .dashboard-state,
+
+.dashboard-page .dashboard-empty-state {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 210px;
+
+  padding: 28px;
+
+  border: 1px dashed #cddacd;
+
+  border-radius: 18px;
+
+  background: var(--dash-surface);
+
+  text-align: center;
+
+}
+
+.dashboard-page .dashboard-state p,
+
+.dashboard-page .dashboard-empty-state p {
+
+  max-width: 440px;
+
+  margin: 10px 0 18px;
+
+  color: var(--dash-muted);
+
+  font-size: 13px;
+
+  line-height: 1.8;
+
+}
+
+.dashboard-page .dashboard-empty-icon {
+
+  display: grid;
+
+  place-items: center;
+
+  width: 62px;
+
+  height: 62px;
+
+  border-radius: 20px;
+
+  background: var(--dash-green-soft);
+
+  font-size: 31px;
+
+}
+
+.dashboard-page .dashboard-empty-state h3 {
+
+  margin: 14px 0 0;
+
+  color: var(--dash-text);
+
+  font-size: 19px;
+
+}
+
+.dashboard-page .dashboard-loader {
+
+  width: 29px;
+
+  height: 29px;
+
+  border: 3px solid #dfe9df;
+
+  border-top-color: var(--dash-green);
+
+  border-radius: 50%;
+
+  animation: dashboard-spin .8s linear infinite;
+
+}
+
+@keyframes dashboard-spin {
+
+  to { transform: rotate(360deg); }
+
+}
+
+.dashboard-page .bottom-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+
+}
+
+.dashboard-page .dashboard-footer {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+
+  gap: 10px 18px;
+
+  margin-top: 32px;
+
+  padding-top: 19px;
+
+  border-top: 1px solid var(--dash-border);
+
+  color: var(--dash-muted);
+
+  font-size: 11px;
+
+  line-height: 1.7;
+
+}
+
+/* WelcomeSection compatibility: style common class names without overriding its layout contract */
+
+.dashboard-page .welcome-section {
+
+  margin-bottom: 22px;
+
+}
+
+.dashboard-page button,
+
+.dashboard-page input,
+
+.dashboard-page select {
+
+  font-family: inherit;
+
+}
+
+@media (max-width: 1100px) {
+
+  .dashboard-page .stats-grid {
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  }
+
+}
+
+@media (max-width: 760px) {
+
+  .dashboard-page {
+
+    padding: 17px;
+
+  }
+
+  .dashboard-page .section-heading {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+  }
+
+  .dashboard-page .period-label {
+
+    align-self: flex-start;
+
+  }
+
+  .dashboard-page .farm-dashboard-grid,
+
+  .dashboard-page .bottom-grid {
+
+    grid-template-columns: minmax(0, 1fr);
+
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .dashboard-page {
+
+    padding: 12px;
+
+  }
+
+  .dashboard-page .stats-grid {
+
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 10px;
+
+  }
+
+  .dashboard-page .stat-card {
+
+    padding: 16px;
+
+  }
+
+  .dashboard-page .stat-value {
+
+    margin-top: 12px;
+
+    font-size: 30px;
+
+  }
+
+  .dashboard-page .dashboard-farm-card {
+
+    padding: 15px;
+
+  }
+
+  .dashboard-page .dashboard-farm-header {
+
+    flex-wrap: wrap;
+
+  }
+
+  .dashboard-page .farm-status {
+
+    margin-inline-start: auto;
+
+  }
+
+  .dashboard-page .dashboard-farm-details {
+
+    gap: 14px 10px;
+
+  }
+
+  .dashboard-page .dashboard-footer {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+  }
+
+}
+
+/* Respect the user's system motion preferences. */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .dashboard-page *,
+
+  .dashboard-page *::before,
+
+  .dashboard-page *::after {
+
+    animation-duration: .01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: .01ms !important;
+
+    scroll-behavior: auto !important;
+
+  }
+
+}
+
+/* Workflow details dialog */
+
+.workflow-details-backdrop {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 1rem;
+
+  background: rgba(15, 23, 18, 0.52);
+
+  animation: workflow-backdrop-in 0.16s ease-out;
+
+}
+
+.workflow-details-dialog {
+
+  width: min(100%, 520px);
+
+  max-height: min(85vh, 680px);
+
+  overflow-y: auto;
+
+  padding: 1.5rem;
+
+  border: 1px solid var(--dash-border, #dce8df);
+
+  border-radius: 18px;
+
+  background: var(--dash-surface, #fff);
+
+  color: var(--dash-text, #173b2c);
+
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+
+  animation: workflow-dialog-in 0.18s ease-out;
+
+}
+
+.workflow-details-dialog-header {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.75rem;
+
+  margin-bottom: 1rem;
+
+}
+
+.workflow-details-dialog-header h2 {
+
+  flex: 1;
+
+  margin: 0;
+
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+
+}
+
+.workflow-details-dialog p {
+
+  margin: 0 0 1.25rem;
+
+  line-height: 1.9;
+
+  color: var(--dash-muted, #718075);
+
+}
+
+.workflow-details-close {
+
+  display: inline-grid;
+
+  place-items: center;
+
+  min-width: 38px;
+
+  min-height: 38px;
+
+  border: 1px solid var(--dash-border, #dce8df);
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: inherit;
+
+  font: inherit;
+
+  cursor: pointer;
+
+}
+
+.workflow-details-close:hover {
+
+  background: var(--dash-green-soft, #e8f5eb);
+
+}
+
+.workflow-details-actions {
+
+  display: flex;
+
+  justify-content: flex-start;
+
+}
+
+@keyframes workflow-backdrop-in {
+
+  from { opacity: 0; }
+
+  to { opacity: 1; }
+
+}
+
+@keyframes workflow-dialog-in {
+
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+
+  to { opacity: 1; transform: translateY(0) scale(1); }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .workflow-details-backdrop,
+
+  .workflow-details-dialog {
+
+    animation: none;
+
+  }
+
+}
+
+/* Dashboard visual system aligned with DigitalTwin.css */
+
+.dashboard-page {
+
+  --dash-bg: var(--background, #f6f8f4);
+
+  --dash-surface: var(--card-bg, #ffffff);
+
+  --dash-text: var(--text-primary, #19372b);
+
+  --dash-muted: var(--text-secondary, #78877f);
+
+  --dash-border: var(--border-color, #e0e9e0);
+
+  --dash-green: var(--primary-color, #2f8057);
+
+  --dash-green-soft: var(--primary-light, #e5f2e8);
+
+  color: var(--dash-text);
+
+  background: var(--dash-bg);
+
+}
+
+.dashboard-page .section-heading h2,
+
+.dashboard-page .stat-value,
+
+.dashboard-page .dashboard-farm-title h3,
+
+.dashboard-page .dashboard-farm-detail strong,
+
+.dashboard-page .dashboard-empty-state h3,
+
+.dashboard-page .workflow-card h3 {
+
+  color: var(--dash-text);
+
+}
+
+.dashboard-page .section-heading p,
+
+.dashboard-page .stat-label,
+
+.dashboard-page .stat-description,
+
+.dashboard-page .dashboard-farm-detail > span,
+
+.dashboard-page .dashboard-farm-footer > span,
+
+.dashboard-page .workflow-card > p {
+
+  color: var(--dash-muted);
+
+}
+
+.dashboard-page .stat-card,
+
+.dashboard-page .dashboard-farm-card,
+
+.dashboard-page .dashboard-state,
+
+.dashboard-page .dashboard-empty-state,
+
+.dashboard-page .workflow-card,
+
+.dashboard-page .period-label {
+
+  border-color: var(--dash-border);
+
+  background: var(--dash-surface);
+
+  box-shadow: 0 3px 12px rgb(25 60 35 / 4%);
+
+  border-radius: 17px;
+
+}
+
+/* Planning tools grid */
+
+.dashboard-page .workflow-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+
+  align-items: stretch;
+
+}
+
+.dashboard-page .workflow-card {
+
+  display: flex;
+
+  min-width: 0;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  padding: 20px;
+
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+
+}
+
+.dashboard-page .workflow-card:hover {
+
+  transform: translateY(-2px);
+
+  border-color: #b9d4c0;
+
+  box-shadow: 0 12px 28px rgb(27 55 34 / 8%);
+
+}
+
+.dashboard-page .workflow-card-top {
+
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 12px;
+
+}
+
+.dashboard-page .workflow-icon {
+
+  display: grid;
+
+  width: 43px;
+
+  height: 43px;
+
+  flex: 0 0 43px;
+
+  place-items: center;
+
+  border-radius: 13px;
+
+  background: var(--dash-green-soft);
+
+  color: var(--dash-green);
+
+  font-size: 21px;
+
+}
+
+.dashboard-page .workflow-status {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 9px;
+
+  border-radius: 8px;
+
+  background: #e8f7ec;
+
+  color: #216b3a;
+
+  font-size: 9px;
+
+  font-weight: 850;
+
+}
+
+.dashboard-page .workflow-card h3 {
+
+  margin: 3px 0 0;
+
+  font-size: 15px;
+
+  font-weight: 850;
+
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .workflow-card > p {
+
+  flex: 1;
+
+  margin: 8px 0 17px;
+
+  font-size: 12px;
+
+  line-height: 1.9;
+
+}
+
+.dashboard-page .workflow-open-button {
+
+  align-self: flex-start;
+
+  margin-top: auto;
+
+}
+
+/* Modal uses the same surface and text tokens as DigitalTwin */
+
+.dashboard-page .workflow-details-dialog {
+
+  border-color: var(--dash-border);
+
+  border-radius: 20px;
+
+  background: var(--dash-surface);
+
+  color: var(--dash-text);
+
+}
+
+.dashboard-page .workflow-details-dialog h2 {
+
+  color: var(--dash-text);
+
+}
+
+.dashboard-page .workflow-details-dialog p {
+
+  color: var(--dash-muted);
+
+}
+
+.dashboard-page .workflow-details-close {
+
+  border-color: var(--dash-border);
+
+  background: var(--dash-surface);
+
+  color: var(--dash-text);
+
+}
+
+.dashboard-page .workflow-details-close:hover {
+
+  background: var(--dash-green-soft);
+
+}
+
+.dashboard-page .workflow-details-actions button {
+
+  border-color: var(--dash-green);
+
+  background: var(--dash-green);
+
+}
+
+/* Dark theme */
+
+.app.dark .dashboard-page {
+
+  --dash-bg: var(--background, #101b14);
+
+  --dash-surface: var(--card-bg, #17271e);
+
+  --dash-text: var(--text-primary, #edf7ef);
+
+  --dash-muted: var(--text-secondary, #b2c4b7);
+
+  --dash-border: var(--border-color, #304638);
+
+  --dash-green: var(--primary-color, #69c58a);
+
+  --dash-green-soft: var(--primary-light, #203c2a);
+
+}
+
+.app.dark .dashboard-page .workflow-status {
+
+  background: #173d28;
+
+  color: #b6f0c5;
+
+}
+
+.app.dark .dashboard-page .stat-icon.green,
+
+.app.dark .dashboard-page .stat-icon.blue,
+
+.app.dark .dashboard-page .stat-icon.orange,
+
+.app.dark .dashboard-page .stat-icon.purple {
+
+  background: #20382a;
+
+  color: #b6f0c5;
+
+}
+
+.app.dark .dashboard-page .farm-status {
+
+  background: #173d28;
+
+  color: #b6f0c5;
+
+}
+
+.app.dark .dashboard-page .workflow-card:hover {
+
+  border-color: #486553;
+
+}
+
+@media (max-width: 760px) {
+
+  .dashboard-page .workflow-grid {
+
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 12px;
+
+  }
+
+  .dashboard-page .workflow-card {
+
+    padding: 16px;
+
+  }
+
+}
+
+/* Climate and crop-rotation panels — aligned with DigitalTwin card styling */
+
+.dashboard-page .bottom-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  align-items: stretch;
+
+  gap: 16px;
+
+}
+
+.dashboard-page .climate-card,
+
+.dashboard-page .rotation-panel {
+
+  display: flex;
+
+  min-width: 0;
+
+  min-height: 100%;
+
+  flex-direction: column;
+
+  gap: 16px;
+
+  padding: clamp(18px, 2vw, 24px);
+
+  border: 1px solid var(--dash-border);
+
+  border-radius: 19px;
+
+  background: var(--dash-surface);
+
+  color: var(--dash-text);
+
+  box-shadow: 0 3px 12px rgb(25 60 35 / 4%);
+
+}
+
+.dashboard-page .card-header,
+
+.dashboard-page .panel-heading {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  min-width: 0;
+
+}
+
+.dashboard-page .card-eyebrow,
+
+.dashboard-page .panel-kicker {
+
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--dash-green);
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+}
+
+.dashboard-page .card-header h2,
+
+.dashboard-page .panel-heading h2 {
+
+  margin: 0;
+
+  color: var(--dash-text);
+
+  font-size: clamp(18px, 1.6vw, 22px);
+
+  font-weight: 900;
+
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .climate-icon,
+
+.dashboard-page .panel-icon {
+
+  display: grid;
+
+  width: 44px;
+
+  height: 44px;
+
+  flex: 0 0 44px;
+
+  place-items: center;
+
+  border-radius: 14px;
+
+  background: var(--dash-green-soft);
+
+  color: var(--dash-green);
+
+  font-size: 22px;
+
+}
+
+.dashboard-page .card-description {
+
+  margin: 0;
+
+  color: var(--dash-muted);
+
+  font-size: 12px;
+
+  line-height: 1.9;
+
+}
+
+.dashboard-page .farm-form-field {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+
+  min-width: 0;
+
+  padding: 16px;
+
+  border: 1px solid var(--dash-border);
+
+  border-radius: 15px;
+
+  background: var(--dash-bg);
+
+}
+
+.dashboard-page .farm-form-field label {
+
+  color: var(--dash-text);
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+}
+
+.dashboard-page .farm-form-field select {
+
+  width: 100%;
+
+  min-width: 0;
+
+  min-height: 44px;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--dash-border);
+
+  border-radius: 11px;
+
+  background: var(--dash-surface);
+
+  color: var(--dash-text);
+
+  font: inherit;
+
+  font-size: 12px;
+
+}
+
+.dashboard-page .farm-form-field select:focus-visible {
+
+  outline: 3px solid rgb(47 128 87 / 22%);
+
+  outline-offset: 2px;
+
+}
+
+.dashboard-page .climate-note {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  background: var(--dash-bg);
+
+  color: var(--dash-muted);
+
+  font-size: 11px;
+
+  line-height: 1.8;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .climate-note .connection-dot {
+
+  margin-top: 5px;
+
+}
+
+.dashboard-page .climate-button {
+
+  align-self: flex-start;
+
+  max-width: 100%;
+
+}
+
+.dashboard-page .climate-button:disabled {
+
+  opacity: .58;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+
+}
+
+.dashboard-page .climate-error {
+
+  margin: 0;
+
+  padding: 11px 13px;
+
+  border: 1px solid #e9b5b0;
+
+  border-radius: 11px;
+
+  background: #fff0ef;
+
+  color: #ae3530;
+
+  font-size: 12px;
+
+  line-height: 1.8;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .climate-metrics {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+
+}
+
+.dashboard-page .climate-metric {
+
+  display: flex;
+
+  min-width: 0;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  padding: 13px;
+
+  border: 1px solid var(--dash-border);
+
+  border-radius: 13px;
+
+  background: var(--dash-bg);
+
+}
+
+.dashboard-page .climate-metric span {
+
+  color: var(--dash-muted);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+
+}
+
+.dashboard-page .climate-metric strong {
+
+  color: var(--dash-text);
+
+  font-size: clamp(16px, 1.8vw, 21px);
+
+  font-weight: 900;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .climate-data-source {
+
+  margin: auto 0 0;
+
+  color: var(--dash-muted);
+
+  font-size: 11px;
+
+  line-height: 1.9;
+
+  overflow-wrap: anywhere;
+
+}
+
+.dashboard-page .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 15px;
+  border: 1px solid var(--dash-border);
+  border-radius: 11px;
+  background: transparent;
+  color: var(--dash-text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.dashboard-page .secondary-button:hover {
+  border-color: var(--dash-green);
+  background: var(--dash-green-soft);
+}
+
+.dashboard-page .empty-state {
+
+  display: flex;
+
+  flex: 1;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 20px 0;
+
+}
+
+.dashboard-page .empty-icon {
+
+  display: grid;
+
+  width: 44px;
+
+  height: 44px;
+
+  place-items: center;
+
+  border-radius: 14px;
+
+  background: var(--dash-green-soft);
+
+  font-size: 23px;
+
+}
+
+.dashboard-page .empty-state h3 {
+
+  margin: 0;
+
+  color: var(--dash-text);
+
+  font-size: 16px;
+
+  font-weight: 900;
+
+  line-height: 1.6;
+
+}
+
+.dashboard-page .empty-state p {
+
+  margin: 0;
+
+  color: var(--dash-muted);
+
+  font-size: 12px;
+
+  line-height: 1.9;
+
+}
+
+.dashboard-page .rotation-benefits {
+
+  display: grid;
+
+  gap: 9px;
+
+  margin-top: auto;
+
+  padding-top: 15px;
+
+  border-top: 1px solid var(--dash-border);
+
+}
+
+.dashboard-page .rotation-benefits > div {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  color: var(--dash-muted);
+
+  font-size: 12px;
+
+  line-height: 1.7;
+
+}
+
+.dashboard-page .rotation-benefits > div span {
+
+  display: inline-grid;
+
+  width: 20px;
+
+  height: 20px;
+
+  flex: 0 0 20px;
+
+  place-items: center;
+
+  border-radius: 7px;
+
+  background: var(--dash-green-soft);
+
+  color: var(--dash-green);
+
+  font-weight: 900;
+
+}
+
+/* Dark-mode error treatment */
+
+.app.dark .dashboard-page .climate-error {
+
+  border-color: #70413c;
+
+  background: #3b2220;
+
+  color: #ffc0b9;
+
+}
+
+@media (max-width: 760px) {
+
+  .dashboard-page .bottom-grid {
+
+    grid-template-columns: minmax(0, 1fr);
+
+  }
+
+  .dashboard-page .climate-card,
+
+  .dashboard-page .rotation-panel {
+
+    padding: 17px;
+
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .dashboard-page .climate-metrics {
+
+    grid-template-columns: minmax(0, 1fr);
+
+  }
+
+  .dashboard-page .card-header h2,
+
+  .dashboard-page .panel-heading h2 {
+
+    font-size: 18px;
+
+  }
+
+}
+
+/* TerraShift Dashboard — DigitalTwin color palette */
+
+/* Main dashboard surfaces */
+
+.app {
+
+  --primary-color: #2f8057;
+
+  --primary-light: #e5f2e8;
+
+  --primary-soft: #f1f6f1;
+
+  --card-bg: #ffffff;
+
+  --input-bg: #ffffff;
+
+  --border-color: #e0e9e0;
+
+  --text-primary: #19372b;
+
+  --text-secondary: #78877f;
+
+}
+
+/* Add Farm modal */
+
+.app .modal-content,
+
+.app .modal-dialog,
+
+.app .add-farm-modal {
+
+  background: #ffffff;
+
+  color: #173b2c;
+
+  border: 1px solid #dce8df;
+
+  border-radius: 20px;
+
+  box-shadow: 0 24px 80px rgb(0 0 0 / 20%);
+
+}
+
+/* Modal headings */
+
+.app .modal-content h1,
+
+.app .modal-content h2,
+
+.app .modal-dialog h1,
+
+.app .modal-dialog h2,
+
+.app .add-farm-modal h1,
+
+.app .add-farm-modal h2 {
+
+  color: #173b2c;
+
+}
+
+/* Form fields */
+
+.app .modal-content input,
+
+.app .modal-content select,
+
+.app .modal-content textarea,
+
+.app .modal-dialog input,
+
+.app .modal-dialog select,
+
+.app .modal-dialog textarea,
+
+.app .add-farm-modal input,
+
+.app .add-farm-modal select,
+
+.app .add-farm-modal textarea {
+
+  background: #ffffff;
+
+  color: #19372b;
+
+  border: 1px solid #dce8df;
+
+  border-radius: 11px;
+
+}
+
+.app .modal-content input:focus,
+
+.app .modal-content select:focus,
+
+.app .modal-content textarea:focus,
+
+.app .modal-dialog input:focus,
+
+.app .modal-dialog select:focus,
+
+.app .modal-dialog textarea:focus,
+
+.app .add-farm-modal input:focus,
+
+.app .add-farm-modal select:focus,
+
+.app .add-farm-modal textarea:focus {
+
+  border-color: #2f8057;
+
+  outline: 2px solid rgb(47 128 87 / 15%);
+
+  outline-offset: 1px;
+
+}
+
+/* Buttons */
+
+.app .modal-content button[type="submit"],
+
+.app .modal-dialog button[type="submit"],
+
+.app .add-farm-modal button[type="submit"] {
+
+  background: #27834b;
+
+  color: #ffffff;
+
+  border: 1px solid #27834b;
+
+  border-radius: 10px;
+
+}
+
+.app .modal-content button[type="submit"]:hover,
+
+.app .modal-dialog button[type="submit"]:hover,
+
+.app .add-farm-modal button[type="submit"]:hover {
+
+  background: #1f6d3d;
+
+}
+
+/* Dark theme */
+
+.app.dark {
+
+  --primary-color: #2f8057;
+
+  --primary-light: #173d28;
+
+  --primary-soft: #17271e;
+
+  --card-bg: #17271e;
+
+  --input-bg: #20382a;
+
+  --border-color: #355343;
+
+  --text-primary: #edf7ef;
+
+  --text-secondary: #c1d2c6;
+
+}
+
+.app.dark .modal-content,
+
+.app.dark .modal-dialog,
+
+.app.dark .add-farm-modal {
+
+  background: #17271e;
+
+  color: #edf7ef;
+
+  border-color: #355343;
+
+}
+
+.app.dark .modal-content h1,
+
+.app.dark .modal-content h2,
+
+.app.dark .modal-dialog h1,
+
+.app.dark .modal-dialog h2,
+
+.app.dark .add-farm-modal h1,
+
+.app.dark .add-farm-modal h2 {
+
+  color: #edf7ef;
+
+}
+
+.app.dark .modal-content input,
+
+.app.dark .modal-content select,
+
+.app.dark .modal-content textarea,
+
+.app.dark .modal-dialog input,
+
+.app.dark .modal-dialog select,
+
+.app.dark .modal-dialog textarea,
+
+.app.dark .add-farm-modal input,
+
+.app.dark .add-farm-modal select,
+
+.app.dark .add-farm-modal textarea {
+
+  background: #20382a;
+
+  color: #edf7ef;
+
+  border-color: #355343;
+
+}
+
+.app.dark .modal-content button[type="submit"],
+
+.app.dark .modal-dialog button[type="submit"],
+
+.app.dark .add-farm-modal button[type="submit"] {
+
+  background: #2f8057;
+
+  border-color: #2f8057;
+
+  color: #ffffff;
+
+}
+
+
+/* Add Farm dialog and form — DigitalTwin palette */
+.dashboard-page .add-farm-modal,
+.dashboard-page .add-farm-dialog,
+.dashboard-page .farm-modal,
+.dashboard-page .modal-content,
+.dashboard-page [role="dialog"] {
+  color: var(--dash-text);
+  background: var(--dash-surface);
+  border-color: var(--dash-border);
+  border-radius: 20px;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 18%);
+}
+
+.dashboard-page .add-farm-modal h1,
+.dashboard-page .add-farm-modal h2,
+.dashboard-page .add-farm-dialog h1,
+.dashboard-page .add-farm-dialog h2,
+.dashboard-page .farm-modal h1,
+.dashboard-page .farm-modal h2,
+.dashboard-page .modal-content h1,
+.dashboard-page .modal-content h2,
+.dashboard-page [role="dialog"] h1,
+.dashboard-page [role="dialog"] h2 {
+  color: var(--dash-text);
+}
+
+.dashboard-page .add-farm-modal label,
+.dashboard-page .add-farm-dialog label,
+.dashboard-page .farm-modal label,
+.dashboard-page .modal-content label,
+.dashboard-page [role="dialog"] label {
+  color: var(--dash-text);
+}
+
+.dashboard-page .add-farm-modal input,
+.dashboard-page .add-farm-modal select,
+.dashboard-page .add-farm-modal textarea,
+.dashboard-page .add-farm-dialog input,
+.dashboard-page .add-farm-dialog select,
+.dashboard-page .add-farm-dialog textarea,
+.dashboard-page .farm-modal input,
+.dashboard-page .farm-modal select,
+.dashboard-page .farm-modal textarea,
+.dashboard-page .modal-content input,
+.dashboard-page .modal-content select,
+.dashboard-page .modal-content textarea,
+.dashboard-page [role="dialog"] input,
+.dashboard-page [role="dialog"] select,
+.dashboard-page [role="dialog"] textarea {
+  color: var(--dash-text);
+  background: var(--dash-surface);
+  border: 1px solid var(--dash-border);
+  border-radius: 11px;
+}
+
+.dashboard-page .add-farm-modal input:focus,
+.dashboard-page .add-farm-modal select:focus,
+.dashboard-page .add-farm-modal textarea:focus,
+.dashboard-page .add-farm-dialog input:focus,
+.dashboard-page .add-farm-dialog select:focus,
+.dashboard-page .add-farm-dialog textarea:focus,
+.dashboard-page .farm-modal input:focus,
+.dashboard-page .farm-modal select:focus,
+.dashboard-page .farm-modal textarea:focus,
+.dashboard-page .modal-content input:focus,
+.dashboard-page .modal-content select:focus,
+.dashboard-page .modal-content textarea:focus,
+.dashboard-page [role="dialog"] input:focus,
+.dashboard-page [role="dialog"] select:focus,
+.dashboard-page [role="dialog"] textarea:focus {
+  border-color: var(--dash-green);
+  outline: 2px solid rgb(47 128 87 / 16%);
+  outline-offset: 1px;
+}
+
+.dashboard-page .add-farm-modal button[type="submit"],
+.dashboard-page .add-farm-dialog button[type="submit"],
+.dashboard-page .farm-modal button[type="submit"],
+.dashboard-page .modal-content button[type="submit"],
+.dashboard-page [role="dialog"] button[type="submit"] {
+  color: #fff;
+  background: linear-gradient(115deg, #2c914f, #237441);
+  border: 1px solid #237a43;
+  border-radius: 10px;
+}
+
+.app.dark .dashboard-page .add-farm-modal,
+.app.dark .dashboard-page .add-farm-dialog,
+.app.dark .dashboard-page .farm-modal,
+.app.dark .dashboard-page .modal-content,
+.app.dark .dashboard-page [role="dialog"] {
+  color: #edf7ef;
+  background: #17271e;
+  border-color: #355343;
+}
+
+.app.dark .dashboard-page .add-farm-modal h1,
+.app.dark .dashboard-page .add-farm-modal h2,
+.app.dark .dashboard-page .add-farm-dialog h1,
+.app.dark .dashboard-page .add-farm-dialog h2,
+.app.dark .dashboard-page .farm-modal h1,
+.app.dark .dashboard-page .farm-modal h2,
+.app.dark .dashboard-page .modal-content h1,
+.app.dark .dashboard-page .modal-content h2,
+.app.dark .dashboard-page [role="dialog"] h1,
+.app.dark .dashboard-page [role="dialog"] h2,
+.app.dark .dashboard-page .add-farm-modal label,
+.app.dark .dashboard-page .add-farm-dialog label,
+.app.dark .dashboard-page .farm-modal label,
+.app.dark .dashboard-page .modal-content label,
+.app.dark .dashboard-page [role="dialog"] label {
+  color: #edf7ef;
+}
+
+.app.dark .dashboard-page .add-farm-modal input,
+.app.dark .dashboard-page .add-farm-modal select,
+.app.dark .dashboard-page .add-farm-modal textarea,
+.app.dark .dashboard-page .add-farm-dialog input,
+.app.dark .dashboard-page .add-farm-dialog select,
+.app.dark .dashboard-page .add-farm-dialog textarea,
+.app.dark .dashboard-page .farm-modal input,
+.app.dark .dashboard-page .farm-modal select,
+.app.dark .dashboard-page .farm-modal textarea,
+.app.dark .dashboard-page .modal-content input,
+.app.dark .dashboard-page .modal-content select,
+.app.dark .dashboard-page .modal-content textarea,
+.app.dark .dashboard-page [role="dialog"] input,
+.app.dark .dashboard-page [role="dialog"] select,
+.app.dark .dashboard-page [role="dialog"] textarea {
+  color: #edf7ef;
+  background: #20382a;
+  border-color: #355343;
+}
+
+.app.dark .dashboard-page .add-farm-modal button[type="submit"],
+.app.dark .dashboard-page .add-farm-dialog button[type="submit"],
+.app.dark .dashboard-page .farm-modal button[type="submit"],
+.app.dark .dashboard-page .modal-content button[type="submit"],
+.app.dark .dashboard-page [role="dialog"] button[type="submit"] {
+  color: #fff;
+  background: #2f8057;
+  border-color: #2f8057;
+}
+
+/* Final color-only overrides: Dashboard palette matched to DigitalTwin.css.
+   Layout, sizing, spacing and responsive rules are intentionally unchanged. */
+.dashboard-page {
+  --dash-bg: #f1f6f1;
+  --dash-surface: #ffffff;
+  --dash-text: #19372b;
+  --dash-muted: #78877f;
+  --dash-border: #e0e9e0;
+  --dash-green: #2f8057;
+  --dash-green-soft: #e5f2e8;
+  color: var(--dash-text);
+  background-color: var(--dash-bg);
+}
+
+.dashboard-page .section-heading h2,
+.dashboard-page .stat-value,
+.dashboard-page .dashboard-farm-title h3,
+.dashboard-page .dashboard-farm-detail strong,
+.dashboard-page .dashboard-empty-state h3,
+.dashboard-page .workflow-card h3,
+.dashboard-page .card-header h2,
+.dashboard-page .panel-heading h2,
+.dashboard-page .climate-metric strong,
+.dashboard-page .empty-state h3,
+.dashboard-page .farm-form-field label {
+  color: var(--dash-text);
+}
+
+.dashboard-page .section-heading p,
+.dashboard-page .stat-label,
+.dashboard-page .stat-description,
+.dashboard-page .dashboard-farm-detail > span,
+.dashboard-page .dashboard-farm-footer > span,
+.dashboard-page .workflow-card > p,
+.dashboard-page .card-description,
+.dashboard-page .climate-data-source,
+.dashboard-page .climate-note,
+.dashboard-page .climate-metric span,
+.dashboard-page .empty-state p,
+.dashboard-page .rotation-benefits > div {
+  color: var(--dash-muted);
+}
+
+.dashboard-page .stat-card,
+.dashboard-page .dashboard-farm-card,
+.dashboard-page .dashboard-state,
+.dashboard-page .dashboard-empty-state,
+.dashboard-page .workflow-card,
+.dashboard-page .period-label,
+.dashboard-page .climate-card,
+.dashboard-page .rotation-panel {
+  color: var(--dash-text);
+  background-color: var(--dash-surface);
+  border-color: var(--dash-border);
+}
+
+.dashboard-page .dashboard-page,
+.dashboard-page .farm-form-field,
+.dashboard-page .climate-note,
+.dashboard-page .climate-metric {
+  color: var(--dash-text);
+  background-color: var(--dash-bg);
+  border-color: var(--dash-border);
+}
+
+.dashboard-page .dashboard-eyebrow,
+.dashboard-page .card-eyebrow,
+.dashboard-page .panel-kicker,
+.dashboard-page .dashboard-farm-footer strong {
+  color: var(--dash-green);
+}
+
+.dashboard-page .dashboard-farm-icon,
+.dashboard-page .workflow-icon,
+.dashboard-page .climate-icon,
+.dashboard-page .panel-icon,
+.dashboard-page .empty-icon,
+.dashboard-page .rotation-benefits > div span {
+  color: var(--dash-green);
+  background-color: var(--dash-green-soft);
+}
+
+.dashboard-page .farm-form-field select,
+.dashboard-page input,
+.dashboard-page select,
+.dashboard-page textarea {
+  color: var(--dash-text);
+  background-color: var(--dash-surface);
+  border-color: var(--dash-border);
+}
+
+.dashboard-page .primary-button,
+.dashboard-page .climate-button {
+  color: #ffffff;
+  background: linear-gradient(115deg, #2f8057, #226b4a);
+  border-color: #2f8057;
+}
+
+.dashboard-page .secondary-button {
+  color: var(--dash-text);
+  background-color: var(--dash-surface);
+  border-color: var(--dash-border);
+}
+
+.dashboard-page .secondary-button:hover,
+.dashboard-page .workflow-details-close:hover {
+  color: var(--dash-green);
+  background-color: var(--dash-green-soft);
+  border-color: var(--dash-green);
+}
+
+.dashboard-page .workflow-details-dialog {
+  color: #19372b;
+  background-color: #ffffff;
+  border-color: #e0e9e0;
+}
+
+.dashboard-page .workflow-details-dialog h2,
+.dashboard-page .workflow-details-close {
+  color: #19372b;
+}
+
+.dashboard-page .workflow-details-dialog p {
+  color: #78877f;
+}
+
+.app.dark .dashboard-page {
+  --dash-bg: #101b14;
+  --dash-surface: #17271e;
+  --dash-text: #edf7ef;
+  --dash-muted: #b2c4b7;
+  --dash-border: #355343;
+  --dash-green: #69c58a;
+  --dash-green-soft: #20382a;
+  color: var(--dash-text);
+  background-color: var(--dash-bg);
+}
+
+.app.dark .dashboard-page .stat-card,
+.app.dark .dashboard-page .dashboard-farm-card,
+.app.dark .dashboard-page .dashboard-state,
+.app.dark .dashboard-page .dashboard-empty-state,
+.app.dark .dashboard-page .workflow-card,
+.app.dark .dashboard-page .period-label,
+.app.dark .dashboard-page .climate-card,
+.app.dark .dashboard-page .rotation-panel {
+  color: var(--dash-text);
+  background-color: var(--dash-surface);
+  border-color: var(--dash-border);
+}
+
+.app.dark .dashboard-page .farm-form-field,
+.app.dark .dashboard-page .climate-note,
+.app.dark .dashboard-page .climate-metric {
+  color: var(--dash-text);
+  background-color: #101b14;
+  border-color: var(--dash-border);
+}
+
+.app.dark .dashboard-page .farm-form-field select,
+.app.dark .dashboard-page input,
+.app.dark .dashboard-page select,
+.app.dark .dashboard-page textarea {
+  color: #edf7ef;
+  background-color: #20382a;
+  border-color: #355343;
+}
+
+.app.dark .dashboard-page .section-heading h2,
+.app.dark .dashboard-page .stat-value,
+.app.dark .dashboard-page .dashboard-farm-title h3,
+.app.dark .dashboard-page .dashboard-farm-detail strong,
+.app.dark .dashboard-page .dashboard-empty-state h3,
+.app.dark .dashboard-page .workflow-card h3,
+.app.dark .dashboard-page .card-header h2,
+.app.dark .dashboard-page .panel-heading h2,
+.app.dark .dashboard-page .climate-metric strong,
+.app.dark .dashboard-page .empty-state h3,
+.app.dark .dashboard-page .farm-form-field label,
+.app.dark .dashboard-page .workflow-details-dialog h2,
+.app.dark .dashboard-page .workflow-details-close {
+  color: #edf7ef;
+}
+
+.app.dark .dashboard-page .section-heading p,
+.app.dark .dashboard-page .stat-label,
+.app.dark .dashboard-page .stat-description,
+.app.dark .dashboard-page .dashboard-farm-detail > span,
+.app.dark .dashboard-page .dashboard-farm-footer > span,
+.app.dark .dashboard-page .workflow-card > p,
+.app.dark .dashboard-page .card-description,
+.app.dark .dashboard-page .climate-data-source,
+.app.dark .dashboard-page .climate-note,
+.app.dark .dashboard-page .climate-metric span,
+.app.dark .dashboard-page .empty-state p,
+.app.dark .dashboard-page .rotation-benefits > div,
+.app.dark .dashboard-page .workflow-details-dialog p {
+  color: #b2c4b7;
+}
+
+.app.dark .dashboard-page .dashboard-farm-icon,
+.app.dark .dashboard-page .workflow-icon,
+.app.dark .dashboard-page .climate-icon,
+.app.dark .dashboard-page .panel-icon,
+.app.dark .dashboard-page .empty-icon,
+.app.dark .dashboard-page .rotation-benefits > div span {
+  color: #69c58a;
+  background-color: #20382a;
+}
+
+.app.dark .dashboard-page .primary-button,
+.app.dark .dashboard-page .climate-button,
+.app.dark .dashboard-page .workflow-details-actions button {
+  color: #ffffff;
+  background: #2f8057;
+  border-color: #2f8057;
+}
+
+.app.dark .dashboard-page .secondary-button {
+  color: #edf7ef;
+  background-color: #17271e;
+  border-color: #355343;
+}
+
+.app.dark .dashboard-page .secondary-button:hover,
+.app.dark .dashboard-page .workflow-details-close:hover {
+  color: #edf7ef;
+  background-color: #20382a;
+  border-color: #69c58a;
+}
+
+.app.dark .dashboard-page .workflow-details-dialog {
+  color: #edf7ef;
+  background-color: #17271e;
+  border-color: #355343;
+}
+
+.dashboard-farm-map {
+  width: 100%;
+  margin: 28px 0;
+  padding: 24px;
+  border-radius: 22px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-farm-map .leaflet-container {
+  font-family: inherit;
+}
+
+@media (max-width: 768px) {
+  .dashboard-farm-map {
+    padding: 14px;
+    margin: 20px 0;
+    border-radius: 16px;
+  }
+}

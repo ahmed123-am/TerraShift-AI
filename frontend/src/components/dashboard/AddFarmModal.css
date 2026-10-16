@@ -1,0 +1,366 @@
+
+/* =========================================
+   TerraShift AI — Add Farm Modal
+   Colors aligned with DigitalTwin.css
+   ========================================= */
+
+.farm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  background: rgba(15, 23, 18, 0.58);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-sizing: border-box;
+}
+
+.farm-modal,
+.farm-modal * {
+  box-sizing: border-box;
+}
+
+.farm-modal {
+  --modal-bg: var(--card-bg, #ffffff);
+  --modal-text: var(--text-primary, #19372b);
+  --modal-muted: var(--text-secondary, #78877f);
+  --modal-border: var(--border-color, #e0e9e0);
+  --modal-input-bg: var(--input-bg, #ffffff);
+  --modal-green: var(--primary-color, #2f8057);
+  --modal-green-soft: var(--primary-light, #e5f2e8);
+
+  width: 100%;
+  max-width: 540px;
+  max-height: calc(100dvh - 40px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 28px;
+
+  background: var(--modal-bg);
+  color: var(--modal-text);
+  border: 1px solid var(--modal-border);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+
+  animation: farm-modal-appear 0.2s ease-out;
+  scrollbar-width: thin;
+  scrollbar-color: var(--modal-green) transparent;
+}
+
+.farm-modal .farm-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.farm-modal .farm-modal-header > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.farm-modal .farm-modal-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--modal-green);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.farm-modal .farm-modal-header h2 {
+  margin: 0 0 8px;
+  color: var(--modal-text);
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.farm-modal .farm-modal-header p {
+  margin: 0;
+  color: var(--modal-muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.farm-modal .farm-modal-close {
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--modal-border);
+  border-radius: 10px;
+  background: var(--modal-bg);
+  color: var(--modal-text);
+  font: inherit;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.farm-modal .farm-modal-close:hover:not(:disabled) {
+  background: var(--modal-green-soft);
+  border-color: var(--modal-green);
+}
+
+.farm-modal .farm-modal-close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form layout — scoped to the modal to avoid Dashboard.css conflicts */
+.farm-modal .farm-form {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+/* Override the shared Dashboard .farm-form-field styles */
+.farm-modal .farm-form .farm-form-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.farm-modal .farm-form-field label {
+  display: block;
+  margin: 0;
+  color: var(--modal-text);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.7;
+}
+
+.farm-modal .farm-form-field input,
+.farm-modal .farm-form-field select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  margin: 0;
+  padding: 12px 14px;
+
+  border: 1px solid var(--modal-border);
+  border-radius: 11px;
+  background: var(--modal-input-bg);
+  color: var(--modal-text);
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  outline: none;
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.farm-modal .farm-form-field input::placeholder {
+  color: var(--modal-muted);
+  opacity: 0.85;
+}
+
+.farm-modal .farm-form-field select {
+  cursor: pointer;
+}
+
+.farm-modal .farm-form-field select option {
+  background: var(--modal-bg);
+  color: var(--modal-text);
+}
+
+.farm-modal .farm-form-field input:focus,
+.farm-modal .farm-form-field select:focus {
+  border-color: var(--modal-green);
+  box-shadow: 0 0 0 3px rgba(47, 128, 87, 0.15);
+}
+
+.farm-modal .farm-form-field input:disabled,
+.farm-modal .farm-form-field select:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Geographic coordinates section */
+.farm-modal .farm-form .farm-form-section {
+  min-width: 0;
+  margin: 4px 0 0;
+  padding: 16px;
+  border: 1px solid var(--modal-border);
+  border-radius: 13px;
+  background: var(--modal-green-soft);
+}
+
+.farm-modal .farm-form-section h3 {
+  margin: 0 0 8px;
+  color: var(--modal-text);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+.farm-modal .farm-form-section p {
+  margin: 0;
+  color: var(--modal-muted);
+  font-size: 12px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+/* Validation error */
+.farm-modal .farm-form-error {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #e9b5b0;
+  border-radius: 11px;
+  background: #fff0ef;
+  color: #ae3530;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+/* Form buttons */
+.farm-modal .farm-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.farm-modal .farm-form-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 46px;
+  padding: 12px 18px;
+  border-radius: 11px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.5;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.farm-modal .farm-submit-button {
+  flex: 1;
+  border: 1px solid var(--modal-green);
+  background: var(--modal-green);
+  color: #ffffff;
+}
+
+.farm-modal .farm-submit-button:hover:not(:disabled) {
+  background: #266b49;
+  border-color: #266b49;
+  transform: translateY(-1px);
+}
+
+.farm-modal .farm-cancel-button {
+  border: 1px solid var(--modal-border);
+  background: transparent;
+  color: var(--modal-text);
+}
+
+.farm-modal .farm-cancel-button:hover:not(:disabled) {
+  border-color: var(--modal-green);
+  background: var(--modal-green-soft);
+  transform: translateY(-1px);
+}
+
+.farm-modal .farm-form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.farm-modal .farm-form-actions button:focus-visible,
+.farm-modal .farm-modal-close:focus-visible {
+  outline: 3px solid rgba(47, 128, 87, 0.3);
+  outline-offset: 2px;
+}
+
+/* Dark mode — compatible with the existing .app.dark class */
+.app.dark .farm-modal {
+  --modal-bg: #17271e;
+  --modal-text: #edf7ef;
+  --modal-muted: #b2c4b7;
+  --modal-border: #355343;
+  --modal-input-bg: #20382a;
+  --modal-green: #2f8057;
+  --modal-green-soft: #203c2a;
+}
+
+.app.dark .farm-modal .farm-form-error {
+  border-color: #70413c;
+  background: #3b2220;
+  color: #ffc0b9;
+}
+
+/* Entrance animation */
+@keyframes farm-modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .farm-modal-overlay {
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .farm-modal {
+    max-height: calc(100dvh - 24px);
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .farm-modal .farm-modal-header h2 {
+    font-size: 21px;
+  }
+
+  .farm-modal .farm-form-actions {
+    flex-direction: column;
+  }
+
+  .farm-modal .farm-form-actions button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .farm-modal,
+  .farm-modal * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}

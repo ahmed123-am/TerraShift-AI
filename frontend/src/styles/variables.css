@@ -1,0 +1,101 @@
+/* =========================================
+   TerraShift AI — Design Variables
+========================================= */
+
+:root {
+  /* Brand Colors */
+  --primary-color: #28784b;
+  --primary-hover: #1e603a;
+  --primary-light: #e8f4eb;
+  --primary-soft: #f1f8f2;
+
+  /* Backgrounds */
+  --background-color: #f5f7f3;
+  --card-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+  --input-bg: #ffffff;
+  --topbar-bg: rgba(255, 255, 255, 0.92);
+
+  /* Text */
+  --text-color: #183326;
+  --text-primary: #183326;
+  --text-secondary: #718078;
+  --muted-color: #87938b;
+
+  /* Borders */
+  --border-color: #e1e9e0;
+  --border: #e1e9e0;
+
+  /* Status Colors */
+  --success-color: #27804b;
+  --success-bg: #eaf7ee;
+
+  --warning-color: #b7791f;
+  --warning-bg: #fff7e6;
+
+  --danger-color: #c53d3d;
+  --danger-bg: #fff0ef;
+
+  --info-color: #2878b5;
+  --info-bg: #edf6ff;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(25, 60, 35, 0.04);
+  --shadow-md: 0 8px 24px rgba(25, 60, 35, 0.07);
+  --shadow-lg: 0 18px 50px rgba(25, 60, 35, 0.12);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Layout */
+  --sidebar-width: 270px;
+  --topbar-height: 76px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+/* =========================================
+   Dark Theme
+========================================= */
+
+.app.dark {
+  --primary-color: #64c887;
+  --primary-hover: #83d9a0;
+  --primary-light: #203d2a;
+  --primary-soft: #1b3022;
+
+  --background-color: #101a14;
+  --card-bg: #17231c;
+  --sidebar-bg: #142019;
+  --input-bg: #17231c;
+  --topbar-bg: rgba(20, 32, 25, 0.94);
+
+  --text-color: #edf5ee;
+  --text-primary: #edf5ee;
+  --text-secondary: #a1b1a5;
+  --muted-color: #829488;
+
+  --border-color: #2d4033;
+  --border: #2d4033;
+
+  --success-color: #83d9a0;
+  --success-bg: #203d2a;
+
+  --warning-color: #f4c46b;
+  --warning-bg: #3c301b;
+
+  --danger-color: #ffb6b0;
+  --danger-bg: #482626;
+
+  --info-color: #85c7f5;
+  --info-bg: #1d3445;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.18);
+  --shadow-lg: 0 18px 50px rgba(0, 0, 0, 0.28);
+}

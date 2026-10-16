@@ -1,0 +1,357 @@
+
+/* =========================================
+   AI FARM ADVISOR
+   TerraShift AI - Standalone Page
+========================================= */
+
+.ai-farm-advisor {
+  --ai-bg: #f4f8f4;
+  --ai-card: #ffffff;
+  --ai-text: #19372b;
+  --ai-muted: #748479;
+  --ai-border: #e0e9e0;
+  --ai-primary: #2f8057;
+  --ai-primary-hover: #246744;
+  --ai-soft: #e8f4eb;
+  --ai-input: #ffffff;
+  --ai-shadow: 0 12px 35px rgba(27, 65, 43, 0.07);
+
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  padding: 32px;
+  color: var(--ai-text);
+  background: var(--ai-bg);
+  border-radius: 22px;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.ai-farm-advisor *,
+.ai-farm-advisor *::before,
+.ai-farm-advisor *::after {
+  box-sizing: border-box;
+}
+
+/* Header */
+
+.ai-advisor-header {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 30px;
+}
+
+.ai-advisor-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding: 10px 15px;
+  border: 1px solid var(--ai-border);
+  border-radius: 10px;
+  background: var(--ai-card);
+  color: var(--ai-text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ai-advisor-back:hover {
+  border-color: var(--ai-primary);
+  transform: translateY(-1px);
+}
+
+.ai-advisor-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ai-primary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.ai-advisor-header h1 {
+  margin: 0 0 12px;
+  color: var(--ai-text);
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.ai-advisor-header > p {
+  max-width: 650px;
+  margin: 0;
+  color: var(--ai-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* Main card */
+
+.ai-advisor-card {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+  overflow: hidden;
+  border: 1px solid var(--ai-border);
+  border-radius: 20px;
+  background: var(--ai-card);
+  box-shadow: var(--ai-shadow);
+}
+
+/* Welcome section */
+
+.ai-advisor-welcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 30px;
+  padding: 22px;
+  border: 1px solid var(--ai-border);
+  border-radius: 16px;
+  background: var(--ai-soft);
+}
+
+.ai-advisor-icon {
+  display: flex;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--ai-primary);
+  color: #ffffff;
+  font-size: 28px;
+}
+
+.ai-advisor-welcome h2 {
+  margin: 0 0 8px;
+  color: var(--ai-text);
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.ai-advisor-welcome p {
+  margin: 0;
+  color: var(--ai-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+/* Form */
+
+.ai-advisor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-advisor-form label {
+  margin-top: 8px;
+  color: var(--ai-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ai-advisor-form select,
+.ai-advisor-form textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 14px 15px;
+  border: 1px solid var(--ai-border);
+  border-radius: 12px;
+  outline: none;
+  background: var(--ai-input);
+  color: var(--ai-text);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.8;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ai-advisor-form select {
+  min-height: 50px;
+  cursor: pointer;
+}
+
+.ai-advisor-form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.ai-advisor-form textarea::placeholder {
+  color: var(--ai-muted);
+  opacity: 0.8;
+}
+
+.ai-advisor-form select:focus,
+.ai-advisor-form textarea:focus {
+  border-color: var(--ai-primary);
+  box-shadow: 0 0 0 3px rgba(47, 128, 87, 0.12);
+}
+
+/* Form actions */
+
+.ai-advisor-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.ai-advisor-form-footer span {
+  color: var(--ai-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ai-advisor-form-footer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--ai-primary);
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.ai-advisor-form-footer button:hover:not(:disabled) {
+  background: var(--ai-primary-hover);
+  transform: translateY(-1px);
+}
+
+.ai-advisor-form-footer button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Informational note */
+
+.ai-advisor-note {
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--ai-border);
+  color: var(--ai-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* Dark theme */
+
+.app.dark .ai-farm-advisor {
+  --ai-bg: #111d16;
+  --ai-card: #17271e;
+  --ai-text: #edf7ef;
+  --ai-muted: #b2c4b7;
+  --ai-border: #355343;
+  --ai-primary: #58a879;
+  --ai-primary-hover: #6cba8b;
+  --ai-soft: #203c2a;
+  --ai-input: #20382a;
+  --ai-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.app.dark .ai-advisor-form-footer button {
+  color: #102017;
+}
+
+.app.dark .ai-advisor-form-footer button:hover:not(:disabled) {
+  color: #102017;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .ai-farm-advisor {
+    min-height: auto;
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .ai-advisor-header {
+    margin-bottom: 22px;
+  }
+
+  .ai-advisor-back {
+    margin-bottom: 22px;
+  }
+
+  .ai-advisor-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .ai-advisor-welcome {
+    padding: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-farm-advisor {
+    padding: 14px;
+  }
+
+  .ai-advisor-card {
+    padding: 16px;
+  }
+
+  .ai-advisor-welcome {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .ai-advisor-icon {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 23px;
+  }
+
+  .ai-advisor-header h1 {
+    font-size: 25px;
+  }
+
+  .ai-advisor-form-footer {
+    align-items: stretch;
+  }
+
+  .ai-advisor-form-footer button {
+    padding: 11px 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-farm-advisor *,
+  .ai-farm-advisor *::before,
+  .ai-farm-advisor *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
