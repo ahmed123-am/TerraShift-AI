@@ -10,8 +10,15 @@ from typing import Any
 
 import requests
 
+import os
+
 BASE_DIR = Path(__file__).resolve().parent
-DATABASE_PATH = BASE_DIR / "terrashift.db"
+
+if os.getenv("VERCEL"):
+    DATABASE_PATH = Path("/tmp/terrashift.db")
+else:
+    DATABASE_PATH = BASE_DIR / "terrashift.db"
+    
 NASA_POWER_URL = "https://power.larc.nasa.gov/api/temporal/daily/point"
 SOIL_GRIDS_URL = "https://rest.isric.org/soilgrids/v2.0/properties/query"
 

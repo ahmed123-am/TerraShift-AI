@@ -29,8 +29,15 @@ from .crop_health_alerts import (
     init_crop_health_alert_tables,
 )
 # Keep the database beside this application module, as in the existing backend.
+import os
+
 BASE_DIR = Path(__file__).resolve().parent
-DATABASE_PATH = BASE_DIR / "terrashift.db"
+
+if os.getenv("VERCEL"):
+    DATABASE_PATH = Path("/tmp/terrashift.db")
+else:
+    DATABASE_PATH = BASE_DIR / "terrashift.db"
+    
 load_dotenv(BASE_DIR.parent / ".env")
 def get_connection() -> sqlite3.Connection:
           connection = sqlite3.connect(DATABASE_PATH)
