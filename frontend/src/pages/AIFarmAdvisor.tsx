@@ -14,7 +14,7 @@ type Props = {
 };
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://terra-shift-ai.vercel.app";
+  import.meta.env.VITE_API_BASE_URL || "https://terra-shift-ai.vercel.app";
 
 export default function AIFarmAdvisor({
   language,
