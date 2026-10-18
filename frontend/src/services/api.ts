@@ -1,5 +1,5 @@
-const API_URL = "https://terra-shift-gryygsp4o-gg-8d76.vercel.app";
 
+const API_URL = "https://terra-shift-gryygsp4o-gg-8d76.vercel.app";
 
 export class ApiError extends Error {
   status: number;
@@ -21,10 +21,12 @@ export async function apiRequest<T>(
   endpoint: string,
   options: ApiRequestOptions = {}
 ): Promise<T> {
-  const { timeoutMs = 15000, ...requestOptions } = options;
+  const { timeoutMs = 30000, ...requestOptions } = options;
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  const url = `${API_URL}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
 
   const headers = new Headers(requestOptions.headers);
   if (!headers.has("Accept")) {
@@ -40,14 +42,11 @@ export async function apiRequest<T>(
   }
 
   try {
-    const response = await fetch(
-      `${API_URL}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`,
-      {
-        ...requestOptions,
-        headers,
-        signal: controller.signal,
-      }
-    );
+    const response = await fetch(url, {
+      ...requestOptions,
+      headers,
+      signal: controller.signal,
+    });
 
     const contentType = response.headers.get("content-type") ?? "";
     let responseData: unknown = null;
@@ -94,12 +93,14 @@ export async function apiRequest<T>(
     }
 
     if (error instanceof Error && error.name === "AbortError") {
-      throw new Error("Request timed out. Please try again.");
+      throw new Error(
+        `Request timed out after ${timeoutMs} ms: ${url}`
+      );
     }
 
     if (error instanceof TypeError) {
       throw new Error(
-        "Cannot connect to the backend. Make sure the API server is running."
+        `Cannot connect to the backend: ${url}. Check the network and CORS settings.`
       );
     }
 
