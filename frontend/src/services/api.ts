@@ -1,5 +1,4 @@
-
-const API_URL = "https://terra-shift-gryygsp4o-gg-8d76.vercel.app";
+const API_URL = "https://terra-shift-ai.vercel.app";
 
 export class ApiError extends Error {
   status: number;
