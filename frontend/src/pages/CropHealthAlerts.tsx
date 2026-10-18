@@ -28,7 +28,7 @@ interface ScanResult {
   baseline: { mean_ndvi: number };
 }
 
-const API_BASE_URL = "http://https://terra-shift-ai.vercel.app";
+const API_BASE_URL = "https://terra-shift-ai.vercel.app";
 
 const translations = {
   en: {

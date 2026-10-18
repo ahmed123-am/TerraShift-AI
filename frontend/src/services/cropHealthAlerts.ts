@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://https://terra-shift-ai.vercel.app";
+const API_BASE_URL = "http://terra-shift-ai.vercel.app";
 
 export type AlertStatus = "open" | "reviewed" | "resolved";
 
