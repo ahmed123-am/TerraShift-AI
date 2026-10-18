@@ -1,5 +1,5 @@
+const API_URL = "https://terra-shift-gryygsp4o-gg-8d76.vercel.app";
 
-export const API_URL = "http://127.0.0.1:8000";
 
 export class ApiError extends Error {
   status: number;

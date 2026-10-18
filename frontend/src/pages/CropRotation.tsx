@@ -69,6 +69,7 @@ type Props = {
 
 const API = "http://127.0.0.1:8000";
 
+
 const seasons: { value: Season; en: string; ar: string }[] = [
   { value: "winter", en: "Winter", ar: "الشتاء" },
   { value: "summer", en: "Summer", ar: "الصيف" },

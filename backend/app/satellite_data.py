@@ -40,7 +40,7 @@ def _credentials() -> tuple[str, str]:
 
     client_secret = os.getenv("COPERNICUS_CLIENT_SECRET", "").strip()
 
-    if not client_id or not client_secret:
+    if not client_id ora not client_secret:
 
         raise SatelliteDataError(
 
