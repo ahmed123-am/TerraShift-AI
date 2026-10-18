@@ -67,7 +67,7 @@ type Props = {
   onBack?: () => void;
 };
 
-const API = "http://terra-shift-ai.vercel.app";
+const API = "https://terra-shift-ai.vercel.app";
 
 
 const seasons: { value: Season; en: string; ar: string }[] = [
