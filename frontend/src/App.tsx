@@ -11,7 +11,6 @@ import WaterWise from "./pages/WaterWise";
 import SoilGuardian from "./pages/SoilGuardian";
 import ClimateIntelligence from "./pages/ClimateIntelligence";
 import DigitalTwin from "./pages/DigitalTwin";
-import AIFarmAdvisor from "./pages/AIFarmAdvisor";
 import SatelliteIntelligence from "./pages/SatelliteIntelligence";
 import CropHealthAlerts from "./pages/CropHealthAlerts";
 
@@ -34,7 +33,6 @@ type Page =
   | "soilguardian"
   | "climate"
   | "digital-twin"
-  | "ai-advisor"
   | "satellite"
   | "crop-health";
 
@@ -46,7 +44,6 @@ const VALID_PAGES = new Set<Page>([
   "soilguardian",
   "climate",
   "digital-twin",
-  "ai-advisor",
   "satellite",
   "crop-health",
 ]);
@@ -235,15 +232,6 @@ export default function App() {
         return (
           <DigitalTwin
             language={language}
-            onBack={() => handleNavigate("dashboard")}
-          />
-        );
-
-      case "ai-advisor":
-        return (
-          <AIFarmAdvisor
-            language={language}
-            farms={farms}
             onBack={() => handleNavigate("dashboard")}
           />
         );

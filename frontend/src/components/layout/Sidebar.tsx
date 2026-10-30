@@ -25,12 +25,7 @@ const menuItems = [
     ar: "تنبيهات صحة المحاصيل",
   },
   { id: "digital-twin", icon: "◎", en: "Digital Twin", ar: "التوأم الرقمي" },
-  {
-    id: "ai-advisor",
-    icon: "✳",
-    en: "AI Farm Advisor",
-    ar: "المستشار الزراعي الذكي",
-  },
+  
 ];
 
 export default function Sidebar({
