@@ -10,7 +10,6 @@ import CropRotation from "./pages/CropRotation";
 import WaterWise from "./pages/WaterWise";
 import SoilGuardian from "./pages/SoilGuardian";
 import ClimateIntelligence from "./pages/ClimateIntelligence";
-import DigitalTwin from "./pages/DigitalTwin";
 import SatelliteIntelligence from "./pages/SatelliteIntelligence";
 import CropHealthAlerts from "./pages/CropHealthAlerts";
 
@@ -228,13 +227,7 @@ export default function App() {
           />
         );
 
-      case "digital-twin":
-        return (
-          <DigitalTwin
-            language={language}
-            onBack={() => handleNavigate("dashboard")}
-          />
-        );
+      
 
       case "satellite":
         return (

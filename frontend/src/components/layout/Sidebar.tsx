@@ -24,8 +24,7 @@ const menuItems = [
     en: "Crop Health Alerts",
     ar: "تنبيهات صحة المحاصيل",
   },
-  { id: "digital-twin", icon: "◎", en: "Digital Twin", ar: "التوأم الرقمي" },
-  
+
 ];
 
 export default function Sidebar({
