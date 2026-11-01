@@ -1,4 +1,10 @@
+
 import { useState, type FormEvent } from "react";
+import {
+  GoogleMap,
+  MarkerF,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 
 import type { CreateFarmData } from "../../services/farms";
 
@@ -11,6 +17,32 @@ type AddFarmModalProps = {
   isSaving: boolean;
 };
 
+type Coordinates = {
+  lat: number;
+  lng: number;
+};
+
+const mapContainerStyle = {
+  width: "100%",
+  height: "320px",
+  borderRadius: "12px",
+};
+
+const defaultCenter: Coordinates = {
+  lat: 31.4175,
+  lng: 31.8144,
+};
+
+const mapOptions: google.maps.MapOptions = {
+  mapTypeId: "hybrid",
+  mapTypeControl: true,
+  streetViewControl: false,
+  fullscreenControl: true,
+  zoomControl: true,
+  clickableIcons: false,
+  gestureHandling: "greedy",
+};
+
 export default function AddFarmModal({
   language,
   onClose,
@@ -19,17 +51,103 @@ export default function AddFarmModal({
 }: AddFarmModalProps) {
   const isArabic = language === "ar";
 
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "";
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: "terrashift-google-maps",
+    googleMapsApiKey: apiKey,
+  });
+
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [area, setArea] = useState("");
+
   const [soilType, setSoilType] =
     useState<CreateFarmData["soil_type"]>("clay");
+
   const [currentCrop, setCurrentCrop] = useState("");
 
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
   const [error, setError] = useState("");
+
+  const [showMapPicker, setShowMapPicker] = useState(false);
+  const [selectedPosition, setSelectedPosition] =
+    useState<Coordinates | null>(null);
+
+  const [confirmedPosition, setConfirmedPosition] =
+    useState<Coordinates | null>(null);
+
+  const getInitialPosition = (): Coordinates => {
+    const lat = Number(latitude);
+    const lng = Number(longitude);
+
+    if (
+      latitude.trim() !== "" &&
+      longitude.trim() !== "" &&
+      Number.isFinite(lat) &&
+      Number.isFinite(lng) &&
+      lat >= -90 &&
+      lat <= 90 &&
+      lng >= -180 &&
+      lng <= 180
+    ) {
+      return { lat, lng };
+    }
+
+    return defaultCenter;
+  };
+
+  const openMapPicker = () => {
+    setError("");
+
+    const position = getInitialPosition();
+
+    setSelectedPosition(position);
+    setConfirmedPosition(null);
+    setShowMapPicker(true);
+  };
+
+  const handleMapClick = (event: google.maps.MapMouseEvent) => {
+    if (!event.latLng) return;
+
+    const position = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    };
+
+    setSelectedPosition(position);
+  };
+
+  const handleMarkerDrag = (
+    event: google.maps.MapMouseEvent
+  ) => {
+    if (!event.latLng) return;
+
+    setSelectedPosition({
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    });
+  };
+
+  const confirmMapLocation = () => {
+    if (!selectedPosition) {
+      setError(
+        isArabic
+          ? "حدد موقع المزرعة على الخريطة أولًا."
+          : "Please select a farm location on the map first."
+      );
+      return;
+    }
+
+    setLatitude(selectedPosition.lat.toFixed(7));
+    setLongitude(selectedPosition.lng.toFixed(7));
+
+    setConfirmedPosition(selectedPosition);
+    setShowMapPicker(false);
+    setError("");
+  };
 
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
@@ -301,7 +419,7 @@ export default function AddFarmModal({
             />
           </div>
 
-          {/* Coordinates Heading */}
+          {/* Coordinates */}
           <div className="farm-form-section">
             <h3>
               {isArabic
@@ -311,10 +429,174 @@ export default function AddFarmModal({
 
             <p>
               {isArabic
-                ? "تساعد الإحداثيات على جلب بيانات الطقس للموقع الصحيح. يمكنك تركها فارغة وإضافتها لاحقًا."
-                : "Coordinates help retrieve weather data for the correct location. You can leave them empty and add them later."}
+                ? "حدد موقع مزرعتك على الخريطة أو أدخل الإحداثيات يدويًا."
+                : "Select your farm location on the map or enter coordinates manually."}
             </p>
           </div>
+
+          {/* Map Picker Button */}
+          <div className="farm-form-field">
+            <button
+              type="button"
+              onClick={openMapPicker}
+              disabled={isSaving}
+              style={{
+                width: "100%",
+                padding: "13px 16px",
+                border: "none",
+                borderRadius: "10px",
+                background: "#238b57",
+                color: "#fff",
+                fontWeight: 700,
+                fontSize: "14px",
+                cursor: "pointer",
+              }}
+            >
+              📍{" "}
+              {isArabic
+                ? "اختيار موقع المزرعة من الخريطة"
+                : "Choose Farm Location on Map"}
+            </button>
+          </div>
+
+          {/* Map Picker */}
+          {showMapPicker && (
+            <div
+              style={{
+                display: "grid",
+                gap: "12px",
+                padding: "14px",
+                borderRadius: "12px",
+                border: "1px solid #dce8df",
+                background: "var(--card-bg, #f8fbf8)",
+              }}
+            >
+              <div>
+                <strong>
+                  {isArabic
+                    ? "حدد موقع المزرعة"
+                    : "Select Farm Location"}
+                </strong>
+
+                <p style={{ margin: "6px 0 0", fontSize: "13px" }}>
+                  {isArabic
+                    ? "اضغط على الخريطة لوضع العلامة، ثم اسحبها لتعديل الموقع."
+                    : "Click the map to place the marker, then drag it to adjust the location."}
+                </p>
+              </div>
+
+              {!apiKey ? (
+                <div className="farm-form-error">
+                  {isArabic
+                    ? "مفتاح Google Maps API غير موجود. تحقق من إعداد VITE_GOOGLE_MAPS_API_KEY."
+                    : "Google Maps API key is missing. Check VITE_GOOGLE_MAPS_API_KEY."}
+                </div>
+              ) : loadError ? (
+                <div className="farm-form-error">
+                  {isArabic
+                    ? "تعذر تحميل الخريطة. تحقق من مفتاح Google Maps وإعداداته."
+                    : "Could not load Google Maps. Check your API key and settings."}
+                </div>
+              ) : !isLoaded ? (
+                <div style={{ padding: "35px", textAlign: "center" }}>
+                  {isArabic
+                    ? "جاري تحميل الخريطة..."
+                    : "Loading map..."}
+                </div>
+              ) : (
+                <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  center={selectedPosition ?? defaultCenter}
+                  zoom={selectedPosition ? 17 : 12}
+                  options={mapOptions}
+                  onClick={handleMapClick}
+                >
+                  {selectedPosition && (
+                    <MarkerF
+                      position={selectedPosition}
+                      draggable
+                      onDragEnd={handleMarkerDrag}
+                      title={
+                        isArabic
+                          ? "اسحب العلامة لتحديد موقع المزرعة"
+                          : "Drag to select farm location"
+                      }
+                    />
+                  )}
+                </GoogleMap>
+              )}
+
+              {selectedPosition && (
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "10px",
+                    fontSize: "13px",
+                  }}
+                >
+                  <div>
+                    <strong>
+                      {isArabic ? "خط العرض" : "Latitude"}
+                    </strong>
+                    <div>{selectedPosition.lat.toFixed(7)}</div>
+                  </div>
+
+                  <div>
+                    <strong>
+                      {isArabic ? "خط الطول" : "Longitude"}
+                    </strong>
+                    <div>{selectedPosition.lng.toFixed(7)}</div>
+                  </div>
+                </div>
+              )}
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  flexWrap: "wrap",
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={confirmMapLocation}
+                  disabled={!isLoaded || !selectedPosition || isSaving}
+                  style={{
+                    flex: 1,
+                    minWidth: "120px",
+                    padding: "11px",
+                    border: "none",
+                    borderRadius: "9px",
+                    background: "#238b57",
+                    color: "#fff",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    opacity: !isLoaded || !selectedPosition ? 0.5 : 1,
+                  }}
+                >
+                  {isArabic ? "تأكيد الموقع" : "Confirm Location"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowMapPicker(false)}
+                  disabled={isSaving}
+                  style={{
+                    flex: 1,
+                    minWidth: "100px",
+                    padding: "11px",
+                    border: "1px solid #cbd5ce",
+                    borderRadius: "9px",
+                    background: "transparent",
+                    cursor: "pointer",
+                  }}
+                >
+                  {isArabic ? "إغلاق الخريطة" : "Close Map"}
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Latitude */}
           <div className="farm-form-field">
@@ -328,11 +610,12 @@ export default function AddFarmModal({
               min="-90"
               max="90"
               step="any"
-              placeholder={
-                isArabic ? "مثال: 31.4" : "e.g. 31.4"
-              }
+              placeholder={isArabic ? "مثال: 31.4" : "e.g. 31.4"}
               value={latitude}
-              onChange={(event) => setLatitude(event.target.value)}
+              onChange={(event) => {
+                setLatitude(event.target.value);
+                setConfirmedPosition(null);
+              }}
               disabled={isSaving}
             />
           </div>
@@ -349,14 +632,24 @@ export default function AddFarmModal({
               min="-180"
               max="180"
               step="any"
-              placeholder={
-                isArabic ? "مثال: 31.8" : "e.g. 31.8"
-              }
+              placeholder={isArabic ? "مثال: 31.8" : "e.g. 31.8"}
               value={longitude}
-              onChange={(event) => setLongitude(event.target.value)}
+              onChange={(event) => {
+                setLongitude(event.target.value);
+                setConfirmedPosition(null);
+              }}
               disabled={isSaving}
             />
           </div>
+
+          {confirmedPosition && (
+            <p style={{ color: "#238b57", fontSize: "13px" }}>
+              ✓{" "}
+              {isArabic
+                ? "تم تحديد موقع المزرعة بنجاح."
+                : "Farm location selected successfully."}
+            </p>
+          )}
 
           {/* Error */}
           {error && (
@@ -370,7 +663,7 @@ export default function AddFarmModal({
             <button
               className="farm-submit-button"
               type="submit"
-              disabled={isSaving}
+              disabled={isSaving || showMapPicker}
             >
               {isSaving
                 ? isArabic
