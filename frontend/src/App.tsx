@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import MainLayout from "./components/layout/MainLayout";
 import AddFarmModal from "./components/dashboard/AddFarmModal";
+import FarmMap from "./components/common/FarmMap";
 
 import Dashboard from "./pages/Dashboard";
 import FarmExplorer from "./pages/FarmExplorer";
@@ -172,6 +173,15 @@ export default function App() {
               onChooseLocation={() => handleNavigate("farm")}
               onCreatePlan={() => handleNavigate("rotation")}
             />
+
+            {/* Google Maps on the main dashboard */}
+            <div style={{ marginTop: 28 }}>
+              <FarmMap
+                farms={farms}
+                language={language}
+                height={420}
+              />
+            </div>
           </>
         );
 
@@ -227,8 +237,6 @@ export default function App() {
           />
         );
 
-      
-
       case "satellite":
         return (
           <SatelliteIntelligence
@@ -268,7 +276,9 @@ export default function App() {
       onToggleLanguage={handleToggleLanguage}
       onToggleTheme={handleToggleTheme}
     >
-      <div className="app-page-content">{renderPage()}</div>
+      <div className="app-page-content">
+        {renderPage()}
+      </div>
 
       {isAddFarmModalOpen && (
         <AddFarmModal
