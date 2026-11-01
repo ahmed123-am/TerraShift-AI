@@ -20,6 +20,8 @@ type Coordinates = {
   lng: number;
 };
 
+type LocationStatus = "idle" | "loading" | "success" | "error";
+
 const containerStyle = {
   width: "100%",
   height: "100%",
@@ -51,7 +53,6 @@ export default function FarmMap({
   height = 400,
 }: FarmMapProps) {
   const isArabic = language === "ar";
-
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "";
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -61,6 +62,10 @@ export default function FarmMap({
 
   const [selectedFarm, setSelectedFarm] = useState<Farm | null>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [userLocation, setUserLocation] = useState<Coordinates | null>(null);
+  const [locationStatus, setLocationStatus] =
+    useState<LocationStatus>("idle");
+  const [locationError, setLocationError] = useState("");
 
   const mappedFarms = useMemo(
     () =>
@@ -89,28 +94,151 @@ export default function FarmMap({
     [farms]
   );
 
+  const copy = {
+    title: isArabic
+      ? "خريطة المزارع والأقمار الصناعية"
+      : "Satellite & Farm Intelligence Map",
+
+    subtitle: isArabic
+      ? "استكشف مواقع مزارعك باستخدام خرائط جوجل والصور الفضائية."
+      : "Explore your farms using Google Maps and satellite imagery.",
+
+    mapped: isArabic ? "مزرعة على الخريطة" : "Mapped Farms",
+
+    loading: isArabic
+      ? "جاري تحميل خرائط Google..."
+      : "Loading Google Maps...",
+
+    missingKey: isArabic
+      ? "مفتاح Google Maps API غير موجود. أضفه في ملف .env."
+      : "Google Maps API key is missing. Add it to your .env file.",
+
+    loadError: isArabic
+      ? "تعذر تحميل Google Maps. تأكد من المفتاح وإعدادات Google Cloud."
+      : "Could not load Google Maps. Check your API key and Google Cloud settings.",
+
+    noFarms: isArabic
+      ? "لا توجد مزارع بإحداثيات مسجلة حتى الآن."
+      : "No farms with saved coordinates yet.",
+
+    location: isArabic ? "الموقع" : "Location",
+    area: isArabic ? "المساحة" : "Area",
+    crop: isArabic ? "المحصول" : "Crop",
+    soil: isArabic ? "التربة" : "Soil",
+
+    openGoogle: isArabic
+      ? "فتح الموقع في Google Maps"
+      : "Open in Google Maps",
+
+    fitAll: isArabic ? "عرض كل المزارع" : "Show all farms",
+
+    myLocation: isArabic ? "موقعي الحالي" : "My location",
+
+    locating: isArabic
+      ? "جاري تحديد موقعك..."
+      : "Finding your location...",
+
+    locationSuccess: isArabic
+      ? "تم تحديد موقعك بنجاح"
+      : "Your location was found",
+
+    locationDenied: isArabic
+      ? "لم تسمح بالوصول إلى موقعك. يمكنك المحاولة مرة أخرى."
+      : "Location permission was denied. You can try again.",
+
+    locationUnavailable: isArabic
+      ? "موقعك غير متاح حاليًا. حاول مرة أخرى."
+      : "Your location is currently unavailable. Try again.",
+
+    locationTimeout: isArabic
+      ? "استغرق تحديد الموقع وقتًا طويلًا. حاول مرة أخرى."
+      : "Location request timed out. Try again.",
+
+    locationUnsupported: isArabic
+      ? "المتصفح لا يدعم تحديد الموقع."
+      : "Your browser does not support geolocation.",
+
+    retryLocation: isArabic
+      ? "تحديد موقعي"
+      : "Find my location",
+  };
+
+  const locateUser = useCallback(
+    (mapInstance?: google.maps.Map) => {
+      const targetMap = mapInstance ?? map;
+
+      if (!navigator.geolocation) {
+        setLocationStatus("error");
+        setLocationError(copy.locationUnsupported);
+        return;
+      }
+
+      setLocationStatus("loading");
+      setLocationError("");
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coordinates: Coordinates = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+          setUserLocation(coordinates);
+          setLocationStatus("success");
+          setLocationError("");
+
+          targetMap?.panTo(coordinates);
+          targetMap?.setZoom(16);
+          setSelectedFarm(null);
+        },
+        (error) => {
+          setLocationStatus("error");
+
+          if (error.code === error.PERMISSION_DENIED) {
+            setLocationError(copy.locationDenied);
+          } else if (error.code === error.POSITION_UNAVAILABLE) {
+            setLocationError(copy.locationUnavailable);
+          } else if (error.code === error.TIMEOUT) {
+            setLocationError(copy.locationTimeout);
+          } else {
+            setLocationError(copy.locationUnavailable);
+          }
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0,
+        }
+      );
+    },
+    [map, isArabic]
+  );
+
   const onMapLoad = useCallback(
     (mapInstance: google.maps.Map) => {
       setMap(mapInstance);
 
-      if (mappedFarms.length === 0) return;
+      if (mappedFarms.length > 0) {
+        const bounds = new google.maps.LatLngBounds();
 
-      const bounds = new google.maps.LatLngBounds();
-
-      mappedFarms.forEach((farm) => {
-        bounds.extend({
-          lat: Number(farm.latitude),
-          lng: Number(farm.longitude),
+        mappedFarms.forEach((farm) => {
+          bounds.extend({
+            lat: Number(farm.latitude),
+            lng: Number(farm.longitude),
+          });
         });
-      });
 
-      mapInstance.fitBounds(bounds, 50);
+        mapInstance.fitBounds(bounds, 50);
 
-      if (mappedFarms.length === 1) {
-        mapInstance.setZoom(16);
+        if (mappedFarms.length === 1) {
+          mapInstance.setZoom(16);
+        }
       }
+
+      // Ask the visitor for permission when the map first loads.
+      locateUser(mapInstance);
     },
-    [mappedFarms]
+    [mappedFarms, locateUser]
   );
 
   const fitAllFarms = useCallback(() => {
@@ -151,43 +279,6 @@ export default function FarmMap({
     [map]
   );
 
-  const copy = {
-    title: isArabic
-      ? "خريطة المزارع والأقمار الصناعية"
-      : "Satellite & Farm Intelligence Map",
-
-    subtitle: isArabic
-      ? "استكشف مواقع مزارعك باستخدام خرائط جوجل والصور الفضائية."
-      : "Explore your farms using Google Maps and satellite imagery.",
-
-    mapped: isArabic ? "مزرعة على الخريطة" : "Mapped Farms",
-
-    loading: isArabic
-      ? "جاري تحميل خرائط Google..."
-      : "Loading Google Maps...",
-
-    missingKey: isArabic
-      ? "مفتاح Google Maps API غير موجود. أضفه في ملف .env."
-      : "Google Maps API key is missing. Add it to your .env file.",
-
-    loadError: isArabic
-      ? "تعذر تحميل Google Maps. تأكد من المفتاح وإعدادات Google Cloud."
-      : "Could not load Google Maps. Check your API key and Google Cloud settings.",
-
-    noFarms: isArabic
-      ? "لا توجد مزارع بإحداثيات مسجلة حتى الآن."
-      : "No farms with saved coordinates yet.",
-
-    location: isArabic ? "الموقع" : "Location",
-    area: isArabic ? "المساحة" : "Area",
-    crop: isArabic ? "المحصول" : "Crop",
-    soil: isArabic ? "التربة" : "Soil",
-    openGoogle: isArabic
-      ? "فتح الموقع في Google Maps"
-      : "Open in Google Maps",
-    fitAll: isArabic ? "عرض كل المزارع" : "Show all farms",
-  };
-
   return (
     <div
       style={{
@@ -215,7 +306,14 @@ export default function FarmMap({
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: 8,
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
           <span
             style={{
               background: "rgba(22,163,74,.12)",
@@ -229,6 +327,29 @@ export default function FarmMap({
           >
             🌱 {mappedFarms.length} {copy.mapped}
           </span>
+
+          {isLoaded && (
+            <button
+              type="button"
+              onClick={() => locateUser()}
+              disabled={locationStatus === "loading"}
+              style={{
+                border: "1px solid #2563eb",
+                borderRadius: 20,
+                padding: "8px 14px",
+                cursor:
+                  locationStatus === "loading" ? "wait" : "pointer",
+                background: "#2563eb",
+                color: "#fff",
+                fontWeight: 600,
+                opacity: locationStatus === "loading" ? 0.7 : 1,
+              }}
+            >
+              {locationStatus === "loading"
+                ? copy.locating
+                : `📍 ${copy.retryLocation}`}
+            </button>
+          )}
 
           {isLoaded && mappedFarms.length > 0 && (
             <button
@@ -248,6 +369,39 @@ export default function FarmMap({
           )}
         </div>
       </div>
+
+      {locationStatus === "success" && (
+        <div
+          role="status"
+          style={{
+            marginBottom: 10,
+            padding: "10px 14px",
+            borderRadius: 10,
+            background: "rgba(22,163,74,.10)",
+            color: "#15803d",
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
+          📍 {copy.locationSuccess}
+        </div>
+      )}
+
+      {locationStatus === "error" && locationError && (
+        <div
+          role="alert"
+          style={{
+            marginBottom: 10,
+            padding: "10px 14px",
+            borderRadius: 10,
+            background: "rgba(239,68,68,.09)",
+            color: "#b91c1c",
+            fontSize: 13,
+          }}
+        >
+          {locationError}
+        </div>
+      )}
 
       <div
         style={{
@@ -325,6 +479,40 @@ export default function FarmMap({
               />
             ))}
 
+            {userLocation && (
+              <>
+                <MarkerF
+                  position={userLocation}
+                  title={copy.myLocation}
+                  icon={{
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 10,
+                    fillColor: "#2563eb",
+                    fillOpacity: 1,
+                    strokeColor: "#ffffff",
+                    strokeWeight: 3,
+                  }}
+                  zIndex={999}
+                />
+
+                <InfoWindowF
+                  position={userLocation}
+                  options={{ pixelOffset: new google.maps.Size(0, -12) }}
+                >
+                  <div
+                    style={{
+                      color: "#1f2937",
+                      fontFamily: "Arial, sans-serif",
+                      fontWeight: 700,
+                      padding: 4,
+                    }}
+                  >
+                    📍 {copy.myLocation}
+                  </div>
+                </InfoWindowF>
+              </>
+            )}
+
             {selectedFarm && (
               <InfoWindowF
                 position={{
@@ -399,6 +587,7 @@ export default function FarmMap({
               maxWidth: "90%",
               textAlign: "center",
               fontSize: 13,
+              pointerEvents: "none",
             }}
           >
             {copy.noFarms}
